@@ -15,10 +15,13 @@ div {
     width: 80px;
     height: 80px;
     background-color: black;
-    margin: 20px;
+    margin: 10px;
+    border-radius: 5px;
 
     opacity: 0;
+    perspective: 500px;
     animation: aparicionPaneles 4s ease forwards;
+    transition: background-color 3s ease-in-out, transform 3s ease;
 }
 
 @keyframes aparicionPaneles {

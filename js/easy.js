@@ -26,22 +26,26 @@ function main_program() {
                 
                 main_elem.appendChild(pila[i]);
             }
-
-            //Esperamos 4 segundos y obtenemos numeros random para pintar los paneles
-            setTimeout(()=>array_panels_to_select=selectPanelsMem(1), 3000);
             
             //Obtenemos un array de todos los paneles a través de document
             paneles = document.getElementsByTagName("div");
             
-            //Para no utilizar async-await de momento, utilizo otro setTimeout
+            //Esperamos 4 segundos y obtenemos numeros random para pintar los paneles
             setTimeout(()=>{
-                for(let i=0;i<paneles.length;i++){
-                    if(array_panels_to_select.includes(i)){
-                        paneles[i].style.backgroundColor = "#ff0000";
-                    }
-                }
-            },3100);
+                array_panels_to_select=selectPanelsMem(1);
 
+                //Para no utilizar async-await de momento, utilizo otro setTimeout
+                setTimeout(()=>{
+                    for(let i=0;i<paneles.length;i++){
+                        if(array_panels_to_select.includes(i)){
+                            paneles[i].style.transform = "rotate3d(0, 1, 0, 180deg)";
+                            paneles[i].style.backgroundColor = "#ff0000";
+                        }
+                    }
+                    //En el siguiente timeout esperamos unos segundos y desaparecen los paneles seleccionados
+                    setTimeout(()=>desaparecerPaneles(array_panels_to_select, paneles), 7000); //TIMEOUT_3
+                },100); //TIMEOUT_2
+            }, 3000); //TIMEOUT_1
     
             break;
     }//END_SWITCH
@@ -59,7 +63,13 @@ function selectPanelsMem(level) {
             cantidadPanelesNivel === 1 ? cantidad_paneles_a_select = 7 : cantidad_paneles_a_select = 8;
 
             for(let i=0;i<cantidad_paneles_a_select;i++){
-                paneles_a_seleccionar.push(Math.floor(Math.random()*16));
+                let numRandomPanel = Math.floor(Math.random()*16);
+
+                while(paneles_a_seleccionar.includes(numRandomPanel)){
+                    numRandomPanel = Math.floor(Math.random()*16);
+                }
+
+                paneles_a_seleccionar.push(numRandomPanel);
             }
 
             return paneles_a_seleccionar;
@@ -70,3 +80,18 @@ function selectPanelsMem(level) {
             ;
     }//END_SWITCH
 }//END_FUNCTION
+
+
+function desaparecerPaneles(numPanelesSelect, divsPaneles) {
+    for(let i=0;i<divsPaneles.length;i++){
+        if(numPanelesSelect.includes(i)){
+            divsPaneles[i].style.transform = "rotate3d(0, 0, 0, 180deg)";
+            divsPaneles[i].style.backgroundColor = "#000000";
+        }
+        divsPaneles[i].addEventListener("click",()=>panelSeleccionado(numPanelesSelect));
+    }
+}
+
+function panelSeleccionado(numPanelesSelect) {
+    document.location.assign("../levels/easy.htm");
+}

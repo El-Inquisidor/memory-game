@@ -88,10 +88,35 @@ function desaparecerPaneles(numPanelesSelect, divsPaneles) {
             divsPaneles[i].style.transform = "rotate3d(0, 0, 0, 180deg)";
             divsPaneles[i].style.backgroundColor = "#000000";
         }
-        divsPaneles[i].addEventListener("click",()=>panelSeleccionado(numPanelesSelect));
+        divsPaneles[i].addEventListener("click",(event)=>panelSeleccionado(numPanelesSelect, divsPaneles, event.target));
     }
 }
 
-function panelSeleccionado(numPanelesSelect) {
-    document.location.assign("../levels/easy.htm");
+function panelSeleccionado(numPanelesSelect, divsPaneles, elemActivado) {
+    //document.location.assign("../levels/easy.htm");
+
+    for(let i=0;i<divsPaneles.length;i++){
+        if(divsPaneles[i] === elemActivado){
+            console.log(`ELEMENTO SELECCIONADO: ${i}`);
+
+            if(numPanelesSelect.includes(i)){
+                console.log(" --> CORRECT");
+            } else {
+                console.log(" --> INCORRECT");
+            }
+            break;
+        }
+    }
+    /*
+        if(divsPaneles.includes(elemActivado)){
+            console.log("CORRECT");
+
+        }else{
+            console.log("INCORRECT");
+        }
+
+        if(divsPaneles[0] === elemActivado){
+            console.log("Event activated");
+        }
+    */
 }

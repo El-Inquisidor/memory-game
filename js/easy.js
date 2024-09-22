@@ -43,7 +43,7 @@ function main_program() {
                         }
                     }
                     //En el siguiente timeout esperamos unos segundos y desaparecen los paneles seleccionados
-                    setTimeout(()=>desaparecerPaneles(array_panels_to_select, paneles), 7000); //TIMEOUT_3
+                    setTimeout(()=>desaparecerPaneles(array_panels_to_select, paneles), 5000); //TIMEOUT_3
                 },100); //TIMEOUT_2
             }, 3000); //TIMEOUT_1
     
@@ -96,27 +96,47 @@ function panelSeleccionado(numPanelesSelect, divsPaneles, elemActivado) {
     //document.location.assign("../levels/easy.htm");
 
     for(let i=0;i<divsPaneles.length;i++){
+        let cont_correct_panels = 0; //Contador. Si se selecciona un panel correcto se comprueba con el contador si se han seleccionado todos
+
         if(divsPaneles[i] === elemActivado){
             console.log(`ELEMENTO SELECCIONADO: ${i}`);
 
-            if(numPanelesSelect.includes(i)){
+            if(numPanelesSelect.includes(i)){ //CORRECT
                 console.log(" --> CORRECT");
-            } else {
-                console.log(" --> INCORRECT");
+                divsPaneles[i].style.backgroundColor = "red"; //El panel seleccionado correcto pasa a rojo
+
+                //Comprobamos si se han seleccionado todos los paneles correctos
+
+                for(let i=0;i<divsPaneles.length;i++){
+                    if(divsPaneles[i].style.backgroundColor === "red") cont_correct_panels++;
+                }
+
+                //Si se han seleccionado todos los paneles se mostrará este mensaje y se realizará una acción
+                if(cont_correct_panels === numPanelesSelect.length){
+                    console.log("[ALL PANELS SELECTED]");
+
+                    restartMemTest(); //Nivel superado, se reinicia llamando al siguiente test de memoria
+                }
+
+            } else { //INCORRECT
+                console.log("[INCORRECT PANEL]");
+
+                restartMemTest(); //Se reinicia el nivel
             }
             break;
         }
     }
-    /*
-        if(divsPaneles.includes(elemActivado)){
-            console.log("CORRECT");
+}
 
-        }else{
-            console.log("INCORRECT");
-        }
+function restartMemTest() {
+    let sections_elemts = document.getElementsByTagName("section"); //Se obtiene el elemento main
 
-        if(divsPaneles[0] === elemActivado){
-            console.log("Event activated");
-        }
-    */
+    while(sections_elemts.length !== 0){
+        sections_elemts[0].remove();
+
+    }
+
+    return (()=>{
+        setTimeout(main_program, 4500);
+    })() //Se devuelve la ejecución de la función. (function)(). De esta forma no se devuelve su referencia, sino su ejecución
 }

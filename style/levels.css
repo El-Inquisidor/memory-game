@@ -21,7 +21,7 @@ div {
     opacity: 0;
     perspective: 500px;
     animation: aparicionPaneles 4s ease forwards;
-    transition: background-color 3s ease-in-out, transform 3s ease;
+    transition: background-color 1s ease-in-out, transform 2s ease;
 }
 
 @keyframes aparicionPaneles {

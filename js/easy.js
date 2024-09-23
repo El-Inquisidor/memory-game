@@ -8,7 +8,10 @@ function main_program() {
     let main_elem = document.getElementsByTagName("main")[0];
     let array_panels_to_select = []; //array que contendrá los paneles a seleccionars
     let paneles = []; //Se obtendrán los paneles después de generarlos
-
+    
+    //Se reinicia el resultado
+    document.getElementById("resultado").innerHTML = "";
+    
     //se obtiene la url y si coincide con easy.htm,medm.htm o hard.htm, se ejecutara un codigo determinado
     switch (document.location.href.slice(-8)) {
         case "easy.htm": //Condicion easy
@@ -94,6 +97,8 @@ function desaparecerPaneles(numPanelesSelect, divsPaneles) {
 
 function panelSeleccionado(numPanelesSelect, divsPaneles, elemActivado) {
     //document.location.assign("../levels/easy.htm");
+    let resultado = document.getElementById("resultado"); //article que escribe el resultado
+    let score = document.getElementById("score-value");
 
     for(let i=0;i<divsPaneles.length;i++){
         let cont_correct_panels = 0; //Contador. Si se selecciona un panel correcto se comprueba con el contador si se han seleccionado todos
@@ -114,12 +119,17 @@ function panelSeleccionado(numPanelesSelect, divsPaneles, elemActivado) {
                 //Si se han seleccionado todos los paneles se mostrará este mensaje y se realizará una acción
                 if(cont_correct_panels === numPanelesSelect.length){
                     console.log("[ALL PANELS SELECTED]");
-
+                    resultado.style.color = "black";
+                    resultado.innerHTML = "CORRECT";
+                    score.innerHTML = parseInt(score.innerHTML)+100;
                     restartMemTest(); //Nivel superado, se reinicia llamando al siguiente test de memoria
                 }
 
             } else { //INCORRECT
                 console.log("[INCORRECT PANEL]");
+                resultado.style.color = "red";
+                resultado.innerHTML = "WRONG";
+                score.innerHTML = 0;
 
                 restartMemTest(); //Se reinicia el nivel
             }

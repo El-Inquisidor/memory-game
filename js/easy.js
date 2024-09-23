@@ -83,6 +83,17 @@ function main_program() {
             
     //Esperamos 4 segundos y obtenemos numeros random para pintar los paneles
     setTimeout(()=>{
+        //Temporizador de tiempo antes de que desaparezcan los paneles selecc.
+        document.getElementsByTagName("header")[0].innerHTML = "5";
+        let idInt = setInterval(()=>{ 
+            document.getElementsByTagName("header")[0].innerHTML = parseInt(document.getElementsByTagName("header")[0].innerHTML)-1;
+            console.log("-->[[SEGUNDO]]")
+        },1000);
+        setTimeout(()=>{ //El temporizador finaliza y se elimina de la pantalla
+            clearInterval(idInt);
+            document.getElementsByTagName("header")[0].innerHTML = "";
+        }, 5000);
+
         array_panels_to_select=selectPanelsMem(level);
 
         //Para no utilizar async-await de momento, utilizo otro setTimeout

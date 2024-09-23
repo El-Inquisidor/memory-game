@@ -1,0 +1,88 @@
+@media (max-width: 1160px) {
+    article#score, article#score h2, article#score p {
+        font-size: 20px;
+    }
+    article#resultado, article#score {
+        min-width: 250px;
+    }
+    article#resultado {
+        font-size: 3em;
+    }
+}
+
+@media (max-width: 930px) {
+    article#resultado, article#score {
+        min-width: 200px;
+    }
+    article#resultado {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 840px) {
+    article#resultado, article#score {
+        min-width: 170px;
+    }
+    article#score, article#score h2, article#score p {
+        font-size: 14px;
+    }
+    article#resultado {
+        font-size: 2.2em;
+    }
+}
+
+@media (max-width: 760px) {
+    header {
+        width: 60px;
+        height: 60px;
+        font-size: 40px;
+    }
+    article#resultado, article#score {
+        min-width: 150px;
+    }
+    article#resultado {
+        font-size: 2em;
+    }
+    div {
+        width: 70px;
+        height: 70px;
+        margin: 9px;
+    }
+}
+
+@media (max-width: 680px) {
+    div {
+        width: 60px;
+        height: 60px;
+        margin: 8px;
+    }
+}
+
+@media (max-width: 620px) {
+    body {
+        flex-direction: column;
+    }
+    article#score {
+        align-items: center;
+        justify-content: center;
+    }
+    article#resultado, article#score {
+        min-width: 0px;
+        min-height: 120px;
+    }
+}
+
+@media (max-width: 350px) {
+    header {
+        width: 50px;
+        height: 50px;
+        font-size: 30px;
+        top: 35px;
+        left: 60px;
+    }
+    div {
+        width: 50px;
+        height: 50px;
+        margin: 7px;
+    }
+}

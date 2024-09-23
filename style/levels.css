@@ -47,10 +47,6 @@ article#score {
     user-select: none;
 }
 
-p.score-values {
-    font-size: 0.8em;
-}
-
 article#score h2 {
     margin-right: 10px;
 }

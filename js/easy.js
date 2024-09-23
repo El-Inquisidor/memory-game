@@ -39,14 +39,33 @@ function main_program() {
                 pila.push(document.createElement("section"));
 
                 let pila_divs = [];
-                for(let j=0;j<6;j++){ 
-                    pila_divs.push(document.createElement("div"));
+                for(let j=0;j<6;j++){
+                    let panel_medm = document.createElement("div"); 
+                    panel_medm.setAttribute("class","medm-panel");
+                    pila_divs.push(panel_medm);
                     pila[i].appendChild(pila_divs[j]);
                 }
                 
                 main_elem.appendChild(pila[i]);
             }
 
+            break;
+        case "hard.htm":
+            level = 3; //Esto se guarda para la posterior llamada a selectPanelsMem()
+
+            for(let i=0;i<8;i++){
+                pila.push(document.createElement("section"));
+
+                let pila_divs = [];
+                for(let j=0;j<8;j++){
+                    let panel_hard = document.createElement("div"); 
+                    panel_hard.setAttribute("class","hard-panel");
+                    pila_divs.push(panel_hard);
+                    pila[i].appendChild(pila_divs[j]);
+                }
+                
+                main_elem.appendChild(pila[i]);
+            }
             break;
     }//END_SWITCH
     
@@ -115,7 +134,22 @@ function selectPanelsMem(level) {
             return paneles_a_seleccionar;
         //END_CASE_2    
         case 3:
-            ;
+            cantidadPanelesNivel = Math.floor(Math.random()*2)+1;
+
+            cantidadPanelesNivel === 1 ? cantidad_paneles_a_select = 13 : cantidad_paneles_a_select = 14;
+
+            for(let i=0;i<cantidad_paneles_a_select;i++){
+                let numRandomPanel = Math.floor(Math.random()*64);
+
+                while(paneles_a_seleccionar.includes(numRandomPanel)){
+                    numRandomPanel = Math.floor(Math.random()*64);
+                }
+
+                paneles_a_seleccionar.push(numRandomPanel);
+            }
+
+            return paneles_a_seleccionar;
+        //END_CASE_3
     }//END_SWITCH
 }//END_FUNCTION
 
@@ -157,9 +191,9 @@ function panelSeleccionado(numPanelesSelect, divsPaneles, elemActivado) {
                     resultado.style.color = "black";
                     resultado.innerHTML = "CORRECT";
 
-                    if((document.location.href.slice(-8)==="easy.htm" && numPanelesSelect.length === 7) || ((document.location.href.slice(-8)==="medm.htm" && numPanelesSelect.length === 10)) || ((document.location.href.slice(-8)==="hard.htm" && numPanelesSelect.length === 9))){
+                    if((document.location.href.slice(-8)==="easy.htm" && numPanelesSelect.length === 7) || ((document.location.href.slice(-8)==="medm.htm" && numPanelesSelect.length === 10)) || ((document.location.href.slice(-8)==="hard.htm" && numPanelesSelect.length === 13))){
                         score.innerHTML = parseInt(score.innerHTML)+100;
-                    } else if ((document.location.href.slice(-8)==="easy.htm" && numPanelesSelect.length === 8) || ((document.location.href.slice(-8)==="medm.htm" && numPanelesSelect.length === 11)) || ((document.location.href.slice(-8)==="hard.htm" && numPanelesSelect.length === 10))){
+                    } else if ((document.location.href.slice(-8)==="easy.htm" && numPanelesSelect.length === 8) || ((document.location.href.slice(-8)==="medm.htm" && numPanelesSelect.length === 11)) || ((document.location.href.slice(-8)==="hard.htm" && numPanelesSelect.length === 14))){
                         score.innerHTML = parseInt(score.innerHTML)+150;
     
                     }

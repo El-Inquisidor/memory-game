@@ -1,6 +1,20 @@
 
+/* Clases */
 .bgc-211 {
     background-color: rgb(211,211,211);
+}
+
+/* Características de los paneles de nivel medio */
+div.medm-panel {
+    width: 65px;
+    height: 65px;
+    margin: 7px;
+}
+
+div.hard-panel {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
 }
 
 article#resultado, article#score {

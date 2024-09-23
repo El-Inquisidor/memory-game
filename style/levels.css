@@ -28,14 +28,15 @@ article#resultado {
 
 article#score {
     font-size: 2.5em;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: center;
 }
 
-p#score-value {
-    font-size: 1em;
+p.score-values {
+    font-size: 0.8em;
 }
 
-article#score > h2 {
+article#score h2 {
     margin-right: 10px;
 }
 

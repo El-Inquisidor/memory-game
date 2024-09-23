@@ -4,7 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
     main_program();
 });
 
+var levelGlobal;
+
 function main_program() {
+    let highscore = document.getElementById("hgscore-value");
     let main_elem = document.getElementsByTagName("main")[0];
     let array_panels_to_select = []; //array que contendrá los paneles a seleccionars
     let paneles = []; //Se obtendrán los paneles después de generarlos
@@ -16,9 +19,11 @@ function main_program() {
     
     //se obtiene la url y si coincide con easy.htm,medm.htm o hard.htm, se ejecutara un codigo determinado
     switch (document.location.href.slice(-8)) {
-        case "easy.htm": //Condicion easy
+        case "easy.htm": //Condicion 
+            highscore.innerHTML = localStorage.getItem("highscore-easy");
             level = 1; //Esto se guarda para la posterior llamada a selectPanelsMem()
-            
+            levelGlobal = 1;
+
             for(let i=0;i<4;i++){
                 pila.push(document.createElement("section"));
 
@@ -33,7 +38,9 @@ function main_program() {
             
             break;
         case "medm.htm":
+            highscore.innerHTML = localStorage.getItem("highscore-medm");
             level = 2; //Esto se guarda para la posterior llamada a selectPanelsMem()
+            levelGlobal = 2;
 
             for(let i=0;i<6;i++){
                 pila.push(document.createElement("section"));
@@ -51,7 +58,9 @@ function main_program() {
 
             break;
         case "hard.htm":
+            highscore.innerHTML = localStorage.getItem("highscore-hard");
             level = 3; //Esto se guarda para la posterior llamada a selectPanelsMem()
+            levelGlobal = 3;
 
             for(let i=0;i<8;i++){
                 pila.push(document.createElement("section"));
@@ -165,7 +174,7 @@ function desaparecerPaneles(numPanelesSelect, divsPaneles) {
 }
 
 function panelSeleccionado(numPanelesSelect, divsPaneles, elemActivado) {
-    //document.location.assign("../levels/easy.htm");
+    
     let resultado = document.getElementById("resultado"); //article que escribe el resultado
     let score = document.getElementById("score-value");
 
@@ -191,11 +200,26 @@ function panelSeleccionado(numPanelesSelect, divsPaneles, elemActivado) {
                     resultado.style.color = "black";
                     resultado.innerHTML = "CORRECT";
 
+                    //Asignación de puntos dependiendo del nivel y los paneles acertados, únicamente si se ha ganado el nivel
                     if((document.location.href.slice(-8)==="easy.htm" && numPanelesSelect.length === 7) || ((document.location.href.slice(-8)==="medm.htm" && numPanelesSelect.length === 10)) || ((document.location.href.slice(-8)==="hard.htm" && numPanelesSelect.length === 13))){
                         score.innerHTML = parseInt(score.innerHTML)+100;
                     } else if ((document.location.href.slice(-8)==="easy.htm" && numPanelesSelect.length === 8) || ((document.location.href.slice(-8)==="medm.htm" && numPanelesSelect.length === 11)) || ((document.location.href.slice(-8)==="hard.htm" && numPanelesSelect.length === 14))){
                         score.innerHTML = parseInt(score.innerHTML)+150;
-    
+                    }
+
+                    //HIGHSCORE
+                    if(levelGlobal === 1){
+                        if(parseInt(score.innerHTML) > localStorage.getItem("highscore-easy")){
+                            localStorage.setItem("highscore-easy", score.innerHTML);
+                        }   
+                    } else if(levelGlobal === 2){
+                        if(parseInt(score.innerHTML) > localStorage.getItem("highscore-medm")){
+                            localStorage.setItem("highscore-medm", score.innerHTML);
+                        }   
+                    } else if(levelGlobal === 3){
+                        if(parseInt(score.innerHTML) > localStorage.getItem("highscore-hard")){
+                            localStorage.setItem("highscore-hard", score.innerHTML);
+                        }   
                     }
 
                     restartMemTest(); //Nivel superado, se reinicia llamando al siguiente test de memoria

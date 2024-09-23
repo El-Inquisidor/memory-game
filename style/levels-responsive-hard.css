@@ -1,0 +1,67 @@
+@media (max-width: 1230px){
+    article#score, article#resultado {
+        min-width: 270px;
+    }
+}
+
+@media (max-width: 1170px){
+    article#score, article#resultado {
+        min-width: 180px;
+    }
+    article#score h2 {
+        margin-left: 18px;
+    }
+    article#score h2, article#score p {
+        font-size: 22px;
+    }
+    article#resultado{
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 860px){
+    header {
+        font-size: 22px;
+    }
+    div.hard-panel {
+        width: 42px;
+        height: 42px;
+        margin: 6px;
+    }
+    article#resultado{
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 800px){
+    body {
+        flex-direction: column;
+    }
+    article#resultado{
+        font-size: 2em;
+    }
+    article#score {
+        align-items: center;
+        justify-content: center;
+    }
+    article#resultado, article#score {
+        min-width: 0px;
+        min-height: 180px;
+    }
+}
+
+@media (max-width: 500px){
+    div.hard-panel {
+        width: 37px;
+        height: 37px;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 400px){
+    div.hard-panel {
+        width: 32px;
+        height: 32px;
+        margin: 4px;
+    }
+}
